@@ -43,23 +43,14 @@ resource "aws_instance" "jenkins_vm" {
   key_name                    = aws_key_pair.jenkins_key.key_name
   associate_public_ip_address = true
 
-  user_data = file("jenkins_config.sh")
+  user_data = file("jenkins_vm_config.sh")
 
   # root disk
   root_block_device {
-    volume_size           = 30
-    volume_type           = "gp2"
-    delete_on_termination = true
-    encrypted             = true
-  }
-
-  # extra disk
-  ebs_block_device {
-    device_name           = "/dev/xvda"
     volume_size           = 100
     volume_type           = "gp2"
-    encrypted             = true
     delete_on_termination = true
+    encrypted             = true
   }
 
   tags = {
