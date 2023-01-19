@@ -1,22 +1,22 @@
-// Generates a private key and encodes it as PEM
+# Generates a private key and encodes it as PEM
 resource "tls_private_key" "key_pair" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 
-// Create the key pair
+# Create the key pair
 resource "aws_key_pair" "jenkins_key" {
   key_name   = "jenkins_vm_key"
   public_key = tls_private_key.key_pair.public_key_openssh
 }
 
-// Save file private key
+# Save file private key
 resource "local_file" "ssh_key" {
   filename = "${aws_key_pair.jenkins_key.key_name}.pem"
   content  = tls_private_key.key_pair.private_key_pem
 }
 
-// Get latest Amazon Linux 2 AMI
+# Get latest Amazon Linux 2 AMI
 data "aws_ami" "amazon_linux_2" {
   most_recent = true
   owners      = ["amazon"]
@@ -59,7 +59,7 @@ resource "aws_instance" "jenkins_vm" {
   }
 }
 
-// Elastic IP for jenkins vm
+# Elastic IP for jenkins vm
 resource "aws_eip" "jenkins_vm_eip" {
   instance = aws_instance.jenkins_vm.id
   vpc      = true
