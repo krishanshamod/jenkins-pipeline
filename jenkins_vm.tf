@@ -42,6 +42,7 @@ resource "aws_instance" "jenkins_vm" {
   source_dest_check           = false
   key_name                    = aws_key_pair.jenkins_key.key_name
   associate_public_ip_address = true
+  iam_instance_profile        = aws_iam_instance_profile.ecr_ec2_profile.name
 
   user_data = file("jenkins_vm_config.sh")
 
