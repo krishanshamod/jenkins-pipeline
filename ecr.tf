@@ -1,7 +1,7 @@
 # Private ecr repository
 resource "aws_ecr_repository" "ecr" {
   name                 = "jenkins-pipeline-ecr"
-  image_tag_mutability = "IMMUTABLE"
+  image_tag_mutability = "MUTABLE"
 }
 
 # IAM role for EC2 with ECR access
