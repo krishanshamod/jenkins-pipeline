@@ -21,3 +21,6 @@ sudo service jenkins restart
 sudo service docker restart
 
 sudo yum install git -y
+
+curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
+sudo yum install nodejs -y
